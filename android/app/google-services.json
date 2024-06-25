@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "300015691592",
+    "project_id": "medi-mind-da69b",
+    "storage_bucket": "medi-mind-da69b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:300015691592:android:d0b2d2ef6cefb3a003757d",
+        "android_client_info": {
+          "package_name": "com.use4k.medi_mind"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHbqEHC9hkWg1Ov3WnHQlKO4tA9BJcF30"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
