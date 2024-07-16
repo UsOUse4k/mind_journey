@@ -72,6 +72,9 @@ class $AssetsImagesGen {
   AssetGenImage get onBoarding3 =>
       const AssetGenImage('assets/images/on_boarding_3.png');
 
+  /// File path: assets/images/pill.png
+  AssetGenImage get pill => const AssetGenImage('assets/images/pill.png');
+
   /// File path: assets/images/pills.png
   AssetGenImage get pills => const AssetGenImage('assets/images/pills.png');
 
@@ -84,6 +87,10 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/send.png
   AssetGenImage get send => const AssetGenImage('assets/images/send.png');
+
+  /// File path: assets/images/settings.png
+  AssetGenImage get settings =>
+      const AssetGenImage('assets/images/settings.png');
 
   /// File path: assets/images/time.png
   AssetGenImage get time => const AssetGenImage('assets/images/time.png');
@@ -111,10 +118,12 @@ class $AssetsImagesGen {
         onBoarding1,
         onBoarding2,
         onBoarding3,
+        pill,
         pills,
         profile,
         selectedCelendar,
         send,
+        settings,
         time,
         verification
       ];

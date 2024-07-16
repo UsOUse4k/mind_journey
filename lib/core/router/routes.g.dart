@@ -11,7 +11,7 @@ List<RouteBase> get $appRoutes => [
       $onBoardingRoute,
       $loginRoute,
       $registerRoute,
-      $wrapperRoute,
+      $wrapperShellRoute,
       $addMedicineRoute,
     ];
 
@@ -104,27 +104,37 @@ extension $RegisterRouteExtension on RegisterRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
-RouteBase get $wrapperRoute => ShellRouteData.$route(
-      navigatorKey: WrapperRoute.$navigatorKey,
-      factory: $WrapperRouteExtension._fromState,
-      routes: [
-        GoRouteData.$route(
-          path: '/calendar',
-          factory: $CalendarRouteExtension._fromState,
+RouteBase get $wrapperShellRoute => StatefulShellRouteData.$route(
+      factory: $WrapperShellRouteExtension._fromState,
+      branches: [
+        StatefulShellBranchData.$branch(
+          routes: [
+            GoRouteData.$route(
+              path: '/calendar',
+              factory: $CalendarRouteExtension._fromState,
+            ),
+          ],
         ),
-        GoRouteData.$route(
-          path: '/chat',
-          factory: $ChatRouteExtension._fromState,
-        ),
-        GoRouteData.$route(
-          path: '/profile',
-          factory: $ProfileRouteExtension._fromState,
+        StatefulShellBranchData.$branch(
+          routes: [
+            GoRouteData.$route(
+              path: '/profile',
+              factory: $ProfileRouteExtension._fromState,
+              routes: [
+                GoRouteData.$route(
+                  path: 'settings',
+                  factory: $SettingsRouteExtension._fromState,
+                ),
+              ],
+            ),
+          ],
         ),
       ],
     );
 
-extension $WrapperRouteExtension on WrapperRoute {
-  static WrapperRoute _fromState(GoRouterState state) => const WrapperRoute();
+extension $WrapperShellRouteExtension on WrapperShellRoute {
+  static WrapperShellRoute _fromState(GoRouterState state) =>
+      const WrapperShellRoute();
 }
 
 extension $CalendarRouteExtension on CalendarRoute {
@@ -132,23 +142,6 @@ extension $CalendarRouteExtension on CalendarRoute {
 
   String get location => GoRouteData.$location(
         '/calendar',
-      );
-
-  void go(BuildContext context) => context.go(location);
-
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
-
-  void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location);
-
-  void replace(BuildContext context) => context.replace(location);
-}
-
-extension $ChatRouteExtension on ChatRoute {
-  static ChatRoute _fromState(GoRouterState state) => const ChatRoute();
-
-  String get location => GoRouteData.$location(
-        '/chat',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -178,9 +171,25 @@ extension $ProfileRouteExtension on ProfileRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
+extension $SettingsRouteExtension on SettingsRoute {
+  static SettingsRoute _fromState(GoRouterState state) => const SettingsRoute();
+
+  String get location => GoRouteData.$location(
+        '/profile/settings',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
 RouteBase get $addMedicineRoute => GoRouteData.$route(
       path: '/medicine/add',
-      parentNavigatorKey: AddMedicineRoute.$parentNavigatorKey,
       factory: $AddMedicineRouteExtension._fromState,
     );
 

@@ -16,19 +16,22 @@ class RootBottomNavigationBar extends StatelessWidget {
   const RootBottomNavigationBar({
     super.key,
     required this.items,
-    required this.selectedIndex,
+    this.selectedIndex,
     required this.onSelectedIndexChange,
   });
 
   final List<RootBottomNavigationBarItem> items;
-  final int selectedIndex;
+  final int? selectedIndex;
   final ValueChanged<int> onSelectedIndexChange;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 107,
-      padding: const EdgeInsets.symmetric(horizontal: 25).copyWith(top: 37),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 25,
+        vertical: 20,
+      ),
       color: const Color(0xff6C63FF),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -37,11 +40,11 @@ class RootBottomNavigationBar extends StatelessWidget {
           (index) {
             final item = items[index];
 
-            return GestureDetector(
-              onTap: () {
+            return IconButton(
+              onPressed: () {
                 onSelectedIndexChange(index);
               },
-              child: Column(
+              icon: Column(
                 children: [
                   SizedBox.fromSize(
                     size: const Size.square(20),

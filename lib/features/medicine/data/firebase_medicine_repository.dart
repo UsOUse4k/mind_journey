@@ -21,7 +21,7 @@ class FirebaseMedicineRepository implements IMedicineRepository {
     required DateTime time,
     required int dose,
   }) async {
-    final nameStr = name.getOrCrash();
+    final nameStr = name.getValue();
 
     return _handleCurrentUser(
       (userDocRef) async {
@@ -58,7 +58,8 @@ class FirebaseMedicineRepository implements IMedicineRepository {
   }) async {
     return _handleCurrentUser(
       (userDocRef) async {
-        final medicineDocRef = userDocRef.collection("medicines").doc(medicineId);
+        final medicineDocRef =
+            userDocRef.collection("medicines").doc(medicineId);
         final medicineDoc = await medicineDocRef.get();
 
         if (!medicineDoc.exists) {

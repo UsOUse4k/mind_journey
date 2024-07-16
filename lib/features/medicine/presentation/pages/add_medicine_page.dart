@@ -5,11 +5,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:medi_mind/core/di/injection.dart';
 import 'package:medi_mind/features/common/presentation/utils/common_snackbar.dart';
 import 'package:medi_mind/features/medicine/presentation/blocs/create_medicine/create_medicine_bloc.dart';
-import 'package:medi_mind/features/medicine/presentation/widgets/contents/add_medicine_content.dart';
-import 'package:medi_mind/features/medicine/presentation/widgets/contents/next_dose_content.dart';
-import 'package:medi_mind/features/medicine/presentation/widgets/contents/reception_frequency_content.dart';
-import 'package:medi_mind/features/medicine/presentation/widgets/contents/release_form_content.dart';
-import 'package:medi_mind/features/medicine/presentation/widgets/contents/time_content.dart';
+import 'package:medi_mind/features/medicine/presentation/contents/add_medicine_content.dart';
+import 'package:medi_mind/features/medicine/presentation/contents/next_dose_content.dart';
+import 'package:medi_mind/features/medicine/presentation/contents/reception_frequency_content.dart';
+import 'package:medi_mind/features/medicine/presentation/contents/release_form_content.dart';
+import 'package:medi_mind/features/medicine/presentation/contents/time_content.dart';
 import 'package:medi_mind/gen/assets.gen.dart';
 
 class AddMedicinePage extends StatelessWidget {
@@ -18,6 +18,7 @@ class AddMedicinePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: BlocProvider(
         create: (context) => getIt<CreateMedicineBloc>(),
         child: const BetweenLayout(),

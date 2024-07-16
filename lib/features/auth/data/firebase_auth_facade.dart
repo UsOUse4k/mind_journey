@@ -38,8 +38,8 @@ class FirebaseAuthFacade extends IAuthFacade {
     required Email email,
     required Password password,
   }) async {
-    final emailStr = email.getOrCrash();
-    final passwordStr = password.getOrCrash();
+    final emailStr = email.getValue();
+    final passwordStr = password.getValue();
 
     try {
       final credential = await _firebaseAuth.signInWithEmailAndPassword(
@@ -74,10 +74,10 @@ class FirebaseAuthFacade extends IAuthFacade {
     required Email email,
     required Password password,
   }) async {
-    final nameStr = name.getOrCrash();
-    final surnameStr = surname.getOrCrash();
-    final emailStr = email.getOrCrash();
-    final passwordStr = password.getOrCrash();
+    final nameStr = name.getValue();
+    final surnameStr = surname.getValue();
+    final emailStr = email.getValue();
+    final passwordStr = password.getValue();
 
     try {
       final credential = await _firebaseAuth.createUserWithEmailAndPassword(

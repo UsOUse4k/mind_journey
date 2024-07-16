@@ -40,9 +40,9 @@ class UserEntity extends HiveObject {
     return UserEntity(
       user.id,
       user.userId,
-      user.email.getOrCrash(),
-      user.name.getOrCrash(),
-      user.surname.getOrCrash(),
+      user.email.getValue(),
+      user.name.getValue(),
+      user.surname.getValue(),
     );
   }
 }

@@ -11,9 +11,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart' as _i4;
 import 'package:firebase_auth/firebase_auth.dart' as _i3;
 import 'package:get_it/get_it.dart' as _i1;
-import 'package:go_router/go_router.dart' as _i6;
+import 'package:go_router/go_router.dart' as _i5;
 import 'package:injectable/injectable.dart' as _i2;
-import 'package:medi_mind/core/router/go_router_module.dart' as _i19;
+import 'package:medi_mind/core/router/go_router_module.dart' as _i18;
 import 'package:medi_mind/features/auth/data/firebase_auth_facade.dart' as _i13;
 import 'package:medi_mind/features/auth/domain/i_auth_facade.dart' as _i12;
 import 'package:medi_mind/features/auth/presentation/blocs/login/login_bloc.dart'
@@ -33,8 +33,8 @@ import 'package:medi_mind/features/medicine/presentation/blocs/create_medicine/c
 import 'package:medi_mind/features/medicine/presentation/blocs/get_medicines/medicines_bloc.dart'
     as _i10;
 import 'package:medi_mind/firebase_module.dart' as _i17;
-import 'package:medi_mind/talker_module.dart' as _i18;
-import 'package:talker_flutter/talker_flutter.dart' as _i5;
+import 'package:medi_mind/talker_module.dart' as _i19;
+import 'package:talker_flutter/talker_flutter.dart' as _i6;
 
 extension GetItInjectableX on _i1.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -48,12 +48,12 @@ extension GetItInjectableX on _i1.GetIt {
       environmentFilter,
     );
     final firebaseModule = _$FirebaseModule();
-    final talkerModule = _$TalkerModule();
     final goRouterModule = _$GoRouterModule();
+    final talkerModule = _$TalkerModule();
     gh.factory<_i3.FirebaseAuth>(() => firebaseModule.firebaseAuth);
     gh.factory<_i4.FirebaseFirestore>(() => firebaseModule.firebaseFirestore);
-    gh.lazySingleton<_i5.Talker>(() => talkerModule.talker());
-    gh.lazySingleton<_i6.GoRouter>(() => goRouterModule.goRouter());
+    gh.lazySingleton<_i5.GoRouter>(() => goRouterModule.goRouter());
+    gh.lazySingleton<_i6.Talker>(() => talkerModule.talker());
     gh.lazySingleton<_i7.IMedicineRepository>(
         () => _i8.FirebaseMedicineRepository(gh<_i3.FirebaseAuth>()));
     gh.factory<_i9.CreateMedicineBloc>(
@@ -77,6 +77,6 @@ extension GetItInjectableX on _i1.GetIt {
 
 class _$FirebaseModule extends _i17.FirebaseModule {}
 
-class _$TalkerModule extends _i18.TalkerModule {}
+class _$GoRouterModule extends _i18.GoRouterModule {}
 
-class _$GoRouterModule extends _i19.GoRouterModule {}
+class _$TalkerModule extends _i19.TalkerModule {}

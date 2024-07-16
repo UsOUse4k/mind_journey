@@ -6,10 +6,10 @@ import 'package:medi_mind/core/widgets/root_scaffold.dart';
 import 'package:medi_mind/features/auth/presentation/pages/login_page.dart';
 import 'package:medi_mind/features/auth/presentation/pages/register_page.dart';
 import 'package:medi_mind/features/home/presentation/pages/calendar_page.dart';
-import 'package:medi_mind/features/home/presentation/pages/chat_page.dart';
 import 'package:medi_mind/features/home/presentation/pages/profile_page.dart';
 import 'package:medi_mind/features/medicine/presentation/pages/add_medicine_page.dart';
-import 'package:medi_mind/features/on_boarding/presentation/pages/on_boarding_page.dart';
+import 'package:medi_mind/features/on_boarding/on_boarding_page.dart';
+import 'package:medi_mind/features/settings/settings_page.dart';
 
 part 'routes.g.dart';
 
@@ -56,23 +56,41 @@ class RegisterRoute extends GoRouteData {
   }
 }
 
-@TypedShellRoute<WrapperRoute>(
-  routes: [
-    TypedGoRoute<CalendarRoute>(path: "/calendar"),
-    TypedGoRoute<ChatRoute>(path: "/chat"),
-    TypedGoRoute<ProfileRoute>(path: "/profile"),
+@TypedStatefulShellRoute<WrapperShellRoute>(
+  branches: [
+    TypedStatefulShellBranch<CalendarBranch>(
+      routes: [
+        TypedGoRoute<CalendarRoute>(path: "/calendar"),
+      ],
+    ),
+    TypedStatefulShellBranch<ProfileBranch>(
+      routes: [
+        TypedGoRoute<ProfileRoute>(
+          path: "/profile",
+          routes: [
+            TypedGoRoute<SettingsRoute>(path: "settings"),
+          ],
+        ),
+      ],
+    ),
   ],
 )
-class WrapperRoute extends ShellRouteData {
-  const WrapperRoute();
+class WrapperShellRoute extends StatefulShellRouteData {
+  const WrapperShellRoute();
 
   static final GlobalKey<NavigatorState> $navigatorKey = shellNavigatorKey;
 
   @override
-  Widget builder(BuildContext context, GoRouterState state, Widget navigator) {
-    return RootScaffold(navigator);
+  Widget builder(
+    BuildContext context,
+    GoRouterState state,
+    StatefulNavigationShell navigationShell,
+  ) {
+    return RootScaffold(navigationShell);
   }
 }
+
+class CalendarBranch extends StatefulShellBranchData {}
 
 class CalendarRoute extends GoRouteData {
   const CalendarRoute();
@@ -89,24 +107,13 @@ class CalendarRoute extends GoRouteData {
 class AddMedicineRoute extends GoRouteData {
   const AddMedicineRoute();
 
-  static final GlobalKey<NavigatorState> $parentNavigatorKey = rootNavigatorKey;
-
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const AddMedicinePage();
   }
 }
 
-class ChatRoute extends GoRouteData {
-  const ChatRoute();
-
-  @override
-  Page<void> buildPage(BuildContext context, GoRouterState state) {
-    return const NoTransitionPage(
-      child: ChatPage(),
-    );
-  }
-}
+class ProfileBranch extends StatefulShellBranchData {}
 
 class ProfileRoute extends GoRouteData {
   const ProfileRoute();
@@ -116,5 +123,14 @@ class ProfileRoute extends GoRouteData {
     return const NoTransitionPage(
       child: ProfilePage(),
     );
+  }
+}
+
+class SettingsRoute extends GoRouteData {
+  const SettingsRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const SettingsPage();
   }
 }

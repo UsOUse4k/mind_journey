@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:medi_mind/core/router/app_router.dart';
+import 'package:go_router/go_router.dart';
 import 'package:medi_mind/core/widgets/root_bottom_navigation_bar.dart';
+import 'package:medi_mind/features/common/presentation/utils/in_development_dialog.dart';
 import 'package:medi_mind/gen/assets.gen.dart';
 
 class RootScaffold extends StatelessWidget {
-  const RootScaffold(this.navigator, {super.key});
+  const RootScaffold(this.navigationShell, {super.key});
 
-  final Widget navigator;
+  final StatefulNavigationShell navigationShell;
+
+  void goBranch(int index) {
+    navigationShell.goBranch(
+      index,
+      initialLocation: index == navigationShell.currentIndex,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    final appRouter = AppRouter(context);
-
     final items = [
       RootBottomNavigationBarItem(
         iconPath: Assets.images.calendar.path,
@@ -22,20 +28,34 @@ class RootScaffold extends StatelessWidget {
         label: "Бот",
       ),
       RootBottomNavigationBarItem(
+        iconPath: Assets.images.pill.path,
+        label: "Таблетница",
+      ),
+      RootBottomNavigationBarItem(
         iconPath: Assets.images.profile.path,
         label: "Профиль",
       ),
     ];
 
-    final selectedIndex = appRouter.getCurrentIndex();
-
     return Scaffold(
-      body: navigator,
+      body: navigationShell,
       bottomNavigationBar: RootBottomNavigationBar(
         items: items,
-        selectedIndex: selectedIndex,
+        selectedIndex: switch (navigationShell.currentIndex) {
+          0 => 0,
+          1 => 3,
+          _ => null,
+        },
         onSelectedIndexChange: (index) {
-          appRouter.switchTab(index);
+          switch (index) {
+            case 0:
+              goBranch(0);
+            case 1:
+            case 2:
+              showInDevelopmentDialog(context);
+            case 3:
+              goBranch(1);
+          }
         },
       ),
     );
